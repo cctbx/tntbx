@@ -27,5 +27,5 @@ if (not env_etc.no_boost_python):
     env=env_bpl,
     paths=env_etc.tntbx_common_includes)
   env_bpl.SharedLibrary(
-    target="#libtbx/tnt_ext",
-    source=["tnt_ext.cpp"])
+    target="#libtbx/tntbx_eigensystem_ext",
+    source=["tntbx/eigensystem_ext.cpp"])
