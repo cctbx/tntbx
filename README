@@ -1,1 +1,4 @@
-Add info and this TNT toolbox
+This is a wrapper for TNT 1.2.2 and JAMA 1.2.1 which are in the
+include directory.  Minor mods have been made to these files.
+
+Nigel Moriarty Dec. 2004
