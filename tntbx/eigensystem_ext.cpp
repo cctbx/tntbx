@@ -90,8 +90,7 @@ namespace tnt {
 	  {
 	    for(int j=0;j<nrows;j++)
 	      {
-		//		vectors_(nrows-j-1,i) = v[i][j];
-		vectors_(j,i) = v[i][j];
+		vectors_(nrows-j-1,i) = v[i][j];
 	      }
 	  }
 	return vectors_; 
@@ -107,7 +106,7 @@ namespace tnt {
 	tnt_eigensystem_.getRealEigenvalues(v);
 	for(int i=0;i<nrows;i++)
 	  {
-	    values_[i] = v[i];
+	    values_[nrows-i-1] = v[i];
 	  }
 	return values_; 
       }
@@ -213,6 +212,13 @@ BOOST_PYTHON_MODULE(tntbx_eigensystem_ext)
   // classes
   class_<real<> >("real", no_init) 
     .def(init<af::const_ref<double, af::c_grid<2> > const&
+	 >(
+	   ( 
+	    arg_("m")
+	    )
+	   )
+	 )
+    .def(init<scitbx::sym_mat3<double> const&
 	 >(
 	   ( 
 	    arg_("m")
