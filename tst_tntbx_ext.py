@@ -4,7 +4,8 @@ from scitbx.math import erf_verification, erf, erfc, erfcx
 from scitbx.math import bessel_i1_over_i0,bessel_i0,bessel_i1,bessel_ln_of_i0
 from scitbx.math import bessel_inverse_i1_over_i0
 from scitbx.math import matrix_inversion_in_place
-from scitbx.math import eigensystem, time_eigensystem_real_symmetric
+#from scitbx.math import eigensystem, time_eigensystem_real_symmetric
+from tnt import eigensystem
 from scitbx.math import gaussian
 from scitbx.math import golay_24_12_generator
 from scitbx.math import principal_axes_of_inertia
