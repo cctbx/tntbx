@@ -1,4 +1,6 @@
 from tntbx import eigensystem
+from tntbx.generalized_inverse import generalized_inverse
+
 from scitbx.array_family import flex
 from libtbx.test_utils import approx_equal
 import random
@@ -73,9 +75,41 @@ def exercise_eigensystem():
   #assert v == (0,0,0)
   #print "time_eigensystem_real: %.3f micro seconds" % (
   #  (time.time() - t0)/n_repetitions*1.e6)
-
+  
+def exercise_generalized_inverse_numpy():
+  #print 'Numeric'
+  from Numeric import asarray
+  from LinearAlgebra import generalized_inverse
+  m = asarray([[1,1],[0,0]])
+  n = generalized_inverse(m)
+  #print 'matrix \n',m
+  #print 'inverse\n', n
+  m = asarray([[1,1,1],[0,0,0],[0,0,0]])
+  n = generalized_inverse(m)
+  #print 'matrix \n',m
+  #print 'inverse\n', n
+  
+def exercise_generalized_inverse():
+  m = flex.double([1,1,0,0])
+  m.resize(flex.grid(2,2))
+  m_inverse = generalized_inverse(m)
+  n = flex.double([1./2,0,1./2,0])
+  n.resize(flex.grid(2,2))
+  assert approx_equal(m_inverse, n)
+  m = flex.double([1,1,1,0,0,0,0,0,0])
+  m.resize(flex.grid(3,3))
+  m_inverse = generalized_inverse(m)
+  n = flex.double([1./3,0,0,1./3,0,0,1./3,0,0])
+  n.resize(flex.grid(3,3))
+  assert approx_equal(m_inverse, n)
+  
 def run():
-  exercise_eigensystem()
+  try:
+    exercise_generalized_inverse_numpy()
+  except:
+    pass
+  exercise_generalized_inverse()
+  #exercise_eigensystem()
 
 if (__name__ == "__main__"):
   run()

@@ -34,6 +34,7 @@ namespace tnt {
 	      a[i][j] = square_matrix(i,j);
 	    }
 	}
+      // SVD
       JAMA::SVD<double> tnt_svd(a);
       TNT::Array2D<double> tnt_inverse(nrows, nrows), 
                            svd_u(nrows, nrows),
@@ -42,23 +43,25 @@ namespace tnt {
       tnt_svd.getU(svd_u);
       tnt_svd.getS(svd_s);
       tnt_svd.getV(svd_v);
-      for(int i=0;i<nrows;i++)
+      unsigned rank = tnt_svd.rank();
+      
+      for(int i=0;i<rank;i++)
 	{
-	  for(int j=0;j<nrows;j++)
-	    {
-	      printf("u %d %d %f",i,j,svd_u[i][j]);
-	      printf("s %d %d %f",i,j,svd_s[i][j]);
-	      printf("v %d %d %f",i,j,svd_v[i][j]);
-	    }
+	  svd_s[i][i] = 1/svd_s[i][i];
 	}
-	  //tnt_inverse = 
-
+      tnt_inverse = matmult(svd_v, svd_s);
+      double sum;
       // put tnt inverse into flex array
       for(int i=0;i<nrows;i++)
 	{
 	  for(int j=0;j<nrows;j++)
 	    {
-	      inverse(i,j) = tnt_inverse[i][j];
+	      sum = 0;
+	      for(int k=0;k<nrows;k++)
+		{
+		  sum += tnt_inverse[i][k] * svd_u[j][k];
+		}
+	      inverse(i,j) = sum;
 	    }
 	}
       return inverse;
@@ -68,7 +71,7 @@ namespace tnt {
   }
 } // namespace tnt::<anon>
 
-BOOST_PYTHON_MODULE(tntbx_eigensystem_ext)
+BOOST_PYTHON_MODULE(tntbx_generalized_inverse_ext)
 {
   using namespace tnt;
   using namespace boost::python;
