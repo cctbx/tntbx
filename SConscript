@@ -1,7 +1,8 @@
+import libtbx.load_env
 Import("env_etc")
 
-env_etc.tntbx_dist = env_etc.libtbx_env.dist_path("tntbx")
-env_etc.tntbx_include = env_etc.norm_join(env_etc.tntbx_dist, "include")
+env_etc.tntbx_dist = libtbx.env.dist_path("tntbx")
+env_etc.tntbx_include = libtbx.env.under_dist("tntbx", "include")
 
 env_etc.tntbx_common_includes = [
   env_etc.tntbx_include,
