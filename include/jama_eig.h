@@ -895,7 +895,7 @@ public:
    @param A    Square real (non-complex) matrix
    */
 
-   Eigenvalue() {}
+   Eigenvalue() {} // Added by NWM to help in wrapping
 
    Eigenvalue(const TNT::Array2D<Real> &A) {
       n = A.dim2();
