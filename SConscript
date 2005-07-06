@@ -15,7 +15,7 @@ Import("env_base", "env_etc")
 env = env_base.Copy(
   CXXFLAGS=env_etc.cxxflags_base,
   LIBS=env_etc.libm,
-  LIBPATH=["#libtbx"]
+  LIBPATH=["#lib"]
 )
 env_etc.include_registry.append(
   env=env,
@@ -28,8 +28,8 @@ if (not env_etc.no_boost_python):
     env=env_bpl,
     paths=env_etc.tntbx_common_includes)
   env_bpl.SharedLibrary(
-    target="#libtbx/tntbx_eigensystem_ext",
+    target="#lib/tntbx_eigensystem_ext",
     source=["tntbx/eigensystem_ext.cpp"])
   env_bpl.SharedLibrary(
-    target="#libtbx/tntbx_generalized_inverse_ext",
+    target="#lib/tntbx_generalized_inverse_ext",
     source=["tntbx/generalized_inverse_ext.cpp"])

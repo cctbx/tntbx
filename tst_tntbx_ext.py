@@ -110,6 +110,7 @@ def run():
     pass
   exercise_generalized_inverse()
   #exercise_eigensystem()
+  print "OK"
 
 if (__name__ == "__main__"):
   run()
