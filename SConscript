@@ -5,8 +5,8 @@ env_etc.tntbx_dist = libtbx.env.dist_path("tntbx")
 env_etc.tntbx_include = libtbx.env.under_dist("tntbx", "include")
 
 env_etc.tntbx_common_includes = [
-  env_etc.tntbx_include,
   env_etc.libtbx_include,
+  env_etc.tntbx_include,
   env_etc.scitbx_include,
   env_etc.boost_include,
 ]
