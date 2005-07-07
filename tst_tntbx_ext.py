@@ -75,7 +75,7 @@ def exercise_eigensystem():
   #assert v == (0,0,0)
   #print "time_eigensystem_real: %.3f micro seconds" % (
   #  (time.time() - t0)/n_repetitions*1.e6)
-  
+
 def exercise_generalized_inverse_numpy():
   #print 'Numeric'
   from Numeric import asarray
@@ -88,7 +88,7 @@ def exercise_generalized_inverse_numpy():
   n = generalized_inverse(m)
   #print 'matrix \n',m
   #print 'inverse\n', n
-  
+
 def exercise_generalized_inverse():
   m = flex.double([1,1,0,0])
   m.resize(flex.grid(2,2))
@@ -102,14 +102,14 @@ def exercise_generalized_inverse():
   n = flex.double([1./3,0,0,1./3,0,0,1./3,0,0])
   n.resize(flex.grid(3,3))
   assert approx_equal(m_inverse, n)
-  
+
 def run():
   try:
     exercise_generalized_inverse_numpy()
-  except:
+  except ImportError:
     pass
   exercise_generalized_inverse()
-  #exercise_eigensystem()
+  exercise_eigensystem()
   print "OK"
 
 if (__name__ == "__main__"):
