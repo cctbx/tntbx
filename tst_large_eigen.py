@@ -1,19 +1,17 @@
-from tntbx import eigensystem
+import tntbx.eigensystem
 
 from scitbx.array_family import flex
-#from libtbx.test_utils import approx_equal
+from libtbx.test_utils import approx_equal
+from libtbx.itertbx import count
 
-from Numeric import asarray
-from LinearAlgebra import eigenvalues
+try:
+  import Numeric
+except ImportError:
+  Numeric = None
+else:
+  import LinearAlgebra
 
 def exercise_eigensystem():
-  #n_repetitions = 100000
-  #t0 = time.time()
-  #v = time_eigensystem_real(m, n_repetitions)
-  #assert v == (0,0,0)
-  #print "time_eigensystem_real: %.3f micro seconds" % (
-  #  (time.time() - t0)/n_repetitions*1.e6)
-
   m = [0.13589302585705959, -0.041652833629281995, 0.0,
        -0.02777294381303139, 0.0, -0.028246956907939123,
        -0.037913518508910102, -0.028246956907939123, 0.028246956907939127,
@@ -87,27 +85,36 @@ def exercise_eigensystem():
        -1.4922860501580496e-17, 1.5045367148343648e-17, 1.1871379455070717e-17,
        3.5417945538672392e-17, -0.044470117945807464, 0.29093392415301783,
        0.4365737506672307, 0.77197779276605605]
-  n = asarray(m)
-  n.shape = (15,15)
-  n_values = eigenvalues(n)
-
+  #
   m = flex.double(m)
   m.resize(flex.grid(15,15))
-  #print list(m)
-  s = eigensystem.real(m)
-  print '\n\teigenvalues\n     %-16s %-16s' % ('TNT','Numpy')
+  s = tntbx.eigensystem.real(m)
   e_values = s.values()
-  for i in range(len(e_values)):
-    outl = " %-2d %16.12f %16.12f" % (i+1,e_values[i],n_values[i])
-    #try:
-    #  if i and e_values[i] < e_values[i-1]:
-    #    outl += ' <-- Ordering error'
-    #except:
-    #  pass
-    print outl
-  
+  #
+  if (Numeric is not None):
+    n = Numeric.asarray(m)
+    n.shape = (15,15)
+    n_values = LinearAlgebra.eigenvalues(n)
+    assert len(e_values) == len(n_values)
+    #
+    print '               Eigenvalues'
+    print '      %-16s %-16s' % ('TNT','Numpy')
+    for i,e,n in zip(count(1), e_values, n_values):
+      if (isinstance(e, complex)): e = e.real
+      if (isinstance(n, complex)): n = n.real
+      print "  %2d %16.12f %16.12f" % (i, e, n)
+  #
+  assert approx_equal(e_values, [
+    -5.9070247091545281e-18, -5.9070247091545281e-18,
+    0.071304124011754358, -3.2220216474391861e-17, 0.68233800454109927,
+    1.1594490522786844, 0.027761263516876321, 0.02865105770313877,
+    0.12774949816038358, 0.166753605610936, 0.18708677344352126,
+    0.53297576878337882, 0.62042869735706374, 1.0788186474215082,
+    1.0940938851317925])
+
 def run():
   exercise_eigensystem()
+  print "OK"
 
 if (__name__ == "__main__"):
   run()
