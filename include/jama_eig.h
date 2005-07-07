@@ -896,6 +896,8 @@ class Eigenvalue
 public:
 
 
+   Eigenvalue() {} // Added by NWM to help in wrapping
+
    /** Check for symmetry, then construct the eigenvalue decomposition
    @param A    Square real (non-complex) matrix
    */
