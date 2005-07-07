@@ -88,7 +88,7 @@ inline double Stopwatch::read()
 }
 
 
-}
+} /* TNT namespace */
 #endif
     
 

@@ -210,7 +210,7 @@ BOOST_PYTHON_MODULE(tntbx_eigensystem_ext)
     )
       );
   // classes
-  class_<real<> >("real", no_init) 
+  class_<tnt::real<> >("real", no_init) 
     .def(init<af::const_ref<double, af::c_grid<2> > const&
 	 >(
 	   ( 
@@ -225,7 +225,7 @@ BOOST_PYTHON_MODULE(tntbx_eigensystem_ext)
 	    )
 	   )
 	 )
-    .def("values", &real<>::values)
-    .def("vectors", &real<>::vectors)
+    .def("values", &tnt::real<>::values)
+    .def("vectors", &tnt::real<>::vectors)
     ;
 }

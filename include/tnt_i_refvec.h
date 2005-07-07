@@ -234,6 +234,10 @@ i_refvec<T>::~i_refvec()
 
 } /* namespace TNT */
 
+
+
+
+
 #endif
 /* TNT_I_REFVEC_H */
 

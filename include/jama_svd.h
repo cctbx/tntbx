@@ -8,8 +8,13 @@
 #include "tnt_array2d_utils.h"
 #include "tnt_math_utils.h"
 
+#include <algorithm>
+// for min(), max() below
+#include <cmath>
+// for abs() below
 
 using namespace TNT;
+using namespace std;
 
 namespace JAMA
 {
@@ -362,7 +367,7 @@ class SVD
                double b = ((spm1 + sp)*(spm1 - sp) + epm1*epm1)/2.0;
                double c = (sp*epm1)*(sp*epm1);
                double shift = 0.0;
-               if ((b != 0.0) | (c != 0.0)) {
+               if ((b != 0.0) || (c != 0.0)) {
                   shift = sqrt(b*b + c);
                   if (b < 0.0) {
                      shift = -shift;

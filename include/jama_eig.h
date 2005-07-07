@@ -6,9 +6,14 @@
 #include "tnt_array2d.h"
 #include "tnt_math_utils.h"
 
+#include <algorithm>
+// for min(), max() below
+
+#include <cmath>
+// for abs() below
 
 using namespace TNT;
-
+using namespace std;
 
 namespace JAMA
 {
@@ -894,8 +899,6 @@ public:
    /** Check for symmetry, then construct the eigenvalue decomposition
    @param A    Square real (non-complex) matrix
    */
-
-   Eigenvalue() {} // Added by NWM to help in wrapping
 
    Eigenvalue(const TNT::Array2D<Real> &A) {
       n = A.dim2();
