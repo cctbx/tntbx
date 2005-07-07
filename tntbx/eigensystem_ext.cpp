@@ -15,7 +15,7 @@ namespace tnt {
     // get_eigenvectors wrapper for JAMA getV
     af::versa<double, af::c_grid<2> >
     get_eigenvectors(
-      af::const_ref<double, af::c_grid<2> > const& square_matrix
+      af::ref<double, af::c_grid<2> > const& square_matrix
       )
     {
       unsigned nrows = square_matrix.accessor()[0];
@@ -24,14 +24,7 @@ namespace tnt {
       SCITBX_ASSERT (nrows == ncols);
 
       af::versa<double, af::c_grid<2> > eigenvectors(square_matrix.accessor());
-      TNT::Array2D<double> A(nrows, nrows);
-      for(int i=0;i<nrows;i++)
-        {
-          for(int j=0;j<nrows;j++)
-            {
-              A[i][j] = square_matrix(i,j);
-            }
-        }
+      TNT::Array2D<double> A(nrows, nrows, square_matrix.begin());
       JAMA::Eigenvalue<double> tnt_eigen(A);
       TNT::Array2D<double> V(nrows, nrows);
       tnt_eigen.getV(V);
