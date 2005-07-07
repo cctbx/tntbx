@@ -13,7 +13,7 @@ namespace tnt {
     namespace af = scitbx::af;
 
     // get_eigenvectors wrapper for JAMA getV
-    af::versa<double, af::c_grid<2> > 
+    af::versa<double, af::c_grid<2> >
     get_eigenvectors(
       af::const_ref<double, af::c_grid<2> > const& square_matrix
       )
@@ -22,26 +22,26 @@ namespace tnt {
       unsigned ncols = square_matrix.accessor()[1];
 
       SCITBX_ASSERT (nrows == ncols);
- 
+
       af::versa<double, af::c_grid<2> > eigenvectors(square_matrix.accessor());
       TNT::Array2D<double> A(nrows, nrows);
       for(int i=0;i<nrows;i++)
-	{
-	  for(int j=0;j<nrows;j++)
-	    {
-	      A[i][j] = square_matrix(i,j);
-	    }
-	}
+        {
+          for(int j=0;j<nrows;j++)
+            {
+              A[i][j] = square_matrix(i,j);
+            }
+        }
       JAMA::Eigenvalue<double> tnt_eigen(A);
       TNT::Array2D<double> V(nrows, nrows);
       tnt_eigen.getV(V);
       for(int i=0;i<nrows;i++)
-	{
-	  for(int j=0;j<nrows;j++)
-	    {
-	      eigenvectors(nrows-j-1,i) = V[i][j];
-	    }
-	}
+        {
+          for(int j=0;j<nrows;j++)
+            {
+              eigenvectors(nrows-j-1,i) = V[i][j];
+            }
+        }
       return eigenvectors;
     }
     // get_eigen_vectors
@@ -53,7 +53,7 @@ namespace tnt {
     public:
       //! Default constructor.
       real() {}
-      
+
       /*! \brief Determines the eigenvectors and eigenvalues of the
           real square matrix.
        */
@@ -76,45 +76,45 @@ namespace tnt {
 
       //! The list of eigenvectors.
       af::versa<FloatType, af::c_grid<2> >
-      vectors() const 
-      { 
-	unsigned nrows = square_matrix_.dim1();
-	af::versa<FloatType, af::c_grid<2> > vectors_(af::c_grid<2>(
-								    nrows,
-								    nrows
-								    )
-						      );
-	TNT::Array2D<FloatType> v(nrows, nrows);
-	tnt_eigensystem_.getV(v);
-	for(int i=0;i<nrows;i++)
-	  {
-	    for(int j=0;j<nrows;j++)
-	      {
-		vectors_(nrows-j-1,i) = v[i][j];
-	      }
-	  }
-	return vectors_; 
+      vectors() const
+      {
+        unsigned nrows = square_matrix_.dim1();
+        af::versa<FloatType, af::c_grid<2> > vectors_(af::c_grid<2>(
+                                                                    nrows,
+                                                                    nrows
+                                                                    )
+                                                      );
+        TNT::Array2D<FloatType> v(nrows, nrows);
+        tnt_eigensystem_.getV(v);
+        for(int i=0;i<nrows;i++)
+          {
+            for(int j=0;j<nrows;j++)
+              {
+                vectors_(nrows-j-1,i) = v[i][j];
+              }
+          }
+        return vectors_;
       }
 
       //! The eigenvalues.
       af::shared<FloatType>
-      values() const 
-      { 
-	unsigned nrows = square_matrix_.dim1();
-	af::shared<FloatType> values_(nrows);
-	TNT::Array1D<FloatType> v(nrows);
-	tnt_eigensystem_.getRealEigenvalues(v);
-	for(int i=0;i<nrows;i++)
-	  {
-	    values_[nrows-i-1] = v[i];
-	  }
-	return values_; 
+      values() const
+      {
+        unsigned nrows = square_matrix_.dim1();
+        af::shared<FloatType> values_(nrows);
+        TNT::Array1D<FloatType> v(nrows);
+        tnt_eigensystem_.getRealEigenvalues(v);
+        for(int i=0;i<nrows;i++)
+          {
+            values_[nrows-i-1] = v[i];
+          }
+        return values_;
       }
 
     private:
       //af::shared<FloatType> values_;
       TNT::Array2D<FloatType> square_matrix_;
-      mutable JAMA::Eigenvalue<FloatType> tnt_eigensystem_; 
+      mutable JAMA::Eigenvalue<FloatType> tnt_eigensystem_;
 
       void
       initialize(TNT::Array2D<FloatType> const& m);
@@ -138,15 +138,15 @@ namespace tnt {
       unsigned ncols = m.accessor()[1];
 
       SCITBX_ASSERT (m.is_square());
- 
+
       TNT::Array2D<FloatType> a(nrows, nrows);
       for(int i=0;i<nrows;i++)
-	{
-	  for(int j=0;j<nrows;j++)
-	    {
-	      a[i][j] = m(i,j);
-	    }
-	}
+        {
+          for(int j=0;j<nrows;j++)
+            {
+              a[i][j] = m(i,j);
+            }
+        }
 
       initialize(a);
     }
@@ -160,15 +160,15 @@ namespace tnt {
       unsigned ncols = m.accessor()[1];
 
       SCITBX_ASSERT (nrows == ncols);
- 
+
       TNT::Array2D<FloatType> a(nrows, nrows);
       for(int i=0;i<nrows;i++)
-	{
-	  for(int j=0;j<nrows;j++)
-	    {
-	      a[i][j] = m(i,j);
-	    }
-	}
+        {
+          for(int j=0;j<nrows;j++)
+            {
+              a[i][j] = m(i,j);
+            }
+        }
       initialize(a);
     }
 
@@ -178,12 +178,12 @@ namespace tnt {
       unsigned nrows = 3;
       TNT::Array2D<FloatType> a(nrows, nrows);
       for(int i=0;i<nrows;i++)
-	{
-	  for(int j=0;j<nrows;j++)
-	    {
-	      a[i][j] = m(i,j);
-	    }
-	}
+        {
+          for(int j=0;j<nrows;j++)
+            {
+              a[i][j] = m(i,j);
+            }
+        }
       initialize(a);
     }
 
@@ -196,7 +196,7 @@ namespace tnt {
       SCITBX_ASSERT(m.dim1() == m.dim2());
       square_matrix_=m;
       tnt_eigensystem_ = JAMA::Eigenvalue<FloatType>(m);
-    }    
+    }
 
   }
 } // namespace tnt::<anon>
@@ -210,21 +210,21 @@ BOOST_PYTHON_MODULE(tntbx_eigensystem_ext)
     )
       );
   // classes
-  class_<tnt::real<> >("real", no_init) 
+  class_<tnt::real<> >("real", no_init)
     .def(init<af::const_ref<double, af::c_grid<2> > const&
-	 >(
-	   ( 
-	    arg_("m")
-	    )
-	   )
-	 )
+         >(
+           (
+            arg_("m")
+            )
+           )
+         )
     .def(init<scitbx::sym_mat3<double> const&
-	 >(
-	   ( 
-	    arg_("m")
-	    )
-	   )
-	 )
+         >(
+           (
+            arg_("m")
+            )
+           )
+         )
     .def("values", &tnt::real<>::values)
     .def("vectors", &tnt::real<>::vectors)
     ;
