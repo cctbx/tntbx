@@ -5,11 +5,21 @@ from libtbx.test_utils import approx_equal
 from libtbx.itertbx import count
 
 try:
-  import Numeric
+  import platform
 except ImportError:
-  Numeric = None
+  release = ""
 else:
-  import LinearAlgebra
+  release = platform.release()
+if (   release.endswith("_FC4")
+    or release.endswith("_FC4smp")):
+  Numeric = None # LinearAlgebra.generalized_inverse is broken
+else:
+  try:
+    import Numeric
+  except ImportError:
+    Numeric = None
+  else:
+    import LinearAlgebra
 
 def exercise_eigensystem():
   m = [0.13589302585705959, -0.041652833629281995, 0.0,

@@ -105,9 +105,19 @@ def exercise_generalized_inverse():
 
 def run():
   try:
-    exercise_generalized_inverse_numpy()
+    import platform
   except ImportError:
-    pass
+    release = ""
+  else:
+    release = platform.release()
+  if (   release.endswith("_FC4")
+      or release.endswith("_FC4smp")):
+    pass # LinearAlgebra.generalized_inverse is broken
+  else:
+    try:
+      exercise_generalized_inverse_numpy()
+    except ImportError:
+      pass
   exercise_generalized_inverse()
   exercise_eigensystem()
   print "OK"
