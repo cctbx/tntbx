@@ -16,6 +16,7 @@ if (   release.endswith("_FC4")
 else:
   try:
     import Numeric
+    import LinearAlgebra
   except ImportError:
     Numeric = None
   else:
