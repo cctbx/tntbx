@@ -19,10 +19,7 @@ else:
   except ImportError:
     Numeric = None
   else:
-    if Numeric.__version__ == "stub end":
-      Numeric = None
-    else:
-      import LinearAlgebra
+    import LinearAlgebra
 
 def exercise_eigensystem():
   m = [0.13589302585705959, -0.041652833629281995, 0.0,
