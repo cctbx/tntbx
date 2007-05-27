@@ -8,7 +8,7 @@ namespace tntbx {
 
   namespace af = scitbx::af;
 
-  // generalized_inverse wrapper for JAMA SVD
+  // generalized_inverse wrapper based on JAMA SVD
   af::versa<double, af::c_grid<2> >
   generalized_inverse(
     af::const_ref<double, af::c_grid<2> > const& square_matrix)
@@ -20,17 +20,9 @@ namespace tntbx {
 
     af::versa<double, af::c_grid<2> > inverse(square_matrix.accessor());
 
-    // put flex array into TNT Array2D
-    TNT::Array2D<double> a(nrows, nrows);
-    for(int i=0;i<nrows;i++)
-      {
-        for(int j=0;j<nrows;j++)
-          {
-            a[i][j] = square_matrix(i,j);
-          }
-      }
-    // SVD
-    JAMA::SVD<double> tnt_svd(a);
+    JAMA::SVD<double> tnt_svd(
+      TNT::Array2D<double>(
+        nrows, nrows, const_cast<double*>(square_matrix.begin())));
     TNT::Array2D<double> tnt_inverse(nrows, nrows),
                          svd_u(nrows, nrows),
                          svd_s(nrows, nrows),
@@ -46,7 +38,7 @@ namespace tntbx {
       }
     tnt_inverse = matmult(svd_v, svd_s);
     double sum;
-    // put tnt inverse into flex array
+    // copy tnt inverse to versa array
     for(int i=0;i<nrows;i++)
       {
         for(int j=0;j<nrows;j++)
