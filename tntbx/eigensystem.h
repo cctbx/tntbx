@@ -1,6 +1,7 @@
 #ifndef TNTBX_EIGENSYSTEM_H
 #define TNTBX_EIGENSYSTEM_H
 
+#include <tntbx/import_scitbx_af.h>
 #include <scitbx/mat_ref.h>
 #include <scitbx/sym_mat3.h>
 
@@ -8,19 +9,17 @@
 
 namespace tntbx {
 
-  namespace af = scitbx::af;
-
   // get_eigenvectors wrapper for JAMA getV
   af::versa<double, af::c_grid<2> >
     get_eigenvectors(
-		     af::ref<double, af::c_grid<2> > const& square_matrix
-		     )
+                     af::ref<double, af::c_grid<2> > const& square_matrix
+                     )
     {
       unsigned nrows = square_matrix.accessor()[0];
       unsigned ncols = square_matrix.accessor()[1];
-      
+
       SCITBX_ASSERT (nrows == ncols);
-      
+
       af::versa<double, af::c_grid<2> > eigenvectors(square_matrix.accessor());
       TNT::Array2D<double> A(nrows, nrows, square_matrix.begin());
       JAMA::Eigenvalue<double> tnt_eigen(A);
@@ -36,7 +35,7 @@ namespace tntbx {
       return eigenvectors;
     }
   // get_eigen_vectors
-  
+
   //! Group of associated eigenvectors and eigenvalues.
   template <typename FloatType = double>
     class real
@@ -44,7 +43,7 @@ namespace tntbx {
       public:
       //! Default constructor.
       real() {}
-      
+
       /*! \brief Determines the eigenvectors and eigenvalues of the
           real square matrix.
        */
@@ -86,7 +85,7 @@ namespace tntbx {
           }
         return vectors_;
       }
-      
+
       //! The eigenvalues.
       af::shared<FloatType>
       values() const

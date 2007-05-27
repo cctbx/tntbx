@@ -1,12 +1,11 @@
 #ifndef TNTBX_GENERALIZED_INVERSE_H
 #define TNTBX_GENERALIZED_INVERSE_H
 
+#include <tntbx/import_scitbx_af.h>
 #include <scitbx/array_family/ref.h>
 #include <jama_svd.h>
 
 namespace tntbx {
-
-  namespace af = scitbx::af;
 
   // generalized_inverse wrapper based on JAMA SVD
   af::versa<double, af::c_grid<2> >
@@ -23,10 +22,7 @@ namespace tntbx {
     JAMA::SVD<double> tnt_svd(
       TNT::Array2D<double>(
         nrows, nrows, const_cast<double*>(square_matrix.begin())));
-    TNT::Array2D<double> tnt_inverse(nrows, nrows),
-                         svd_u(nrows, nrows),
-                         svd_s(nrows, nrows),
-                         svd_v(nrows, nrows);
+    TNT::Array2D<double> svd_u, svd_s, svd_v;
     tnt_svd.getU(svd_u);
     tnt_svd.getS(svd_s);
     tnt_svd.getV(svd_v);
@@ -36,7 +32,7 @@ namespace tntbx {
       {
         svd_s[i][i] = 1/svd_s[i][i];
       }
-    tnt_inverse = matmult(svd_v, svd_s);
+    TNT::Array2D<double> tnt_inverse = matmult(svd_v, svd_s);
     double sum;
     // copy tnt inverse to versa array
     for(int i=0;i<nrows;i++)
