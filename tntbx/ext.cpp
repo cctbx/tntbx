@@ -3,7 +3,7 @@
 
 #include <tntbx/generalized_inverse.h>
 
-BOOST_PYTHON_MODULE(tntbx_generalized_inverse_ext)
+BOOST_PYTHON_MODULE(tntbx_ext)
 {
   using namespace boost::python;
   def("generalized_inverse", tntbx::generalized_inverse, (

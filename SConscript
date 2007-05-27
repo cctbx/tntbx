@@ -33,5 +33,5 @@ if (not env_etc.no_boost_python):
     target="#lib/tntbx_eigensystem_ext",
     source=["tntbx/eigensystem_ext.cpp"])
   env_bpl.SharedLibrary(
-    target="#lib/tntbx_generalized_inverse_ext",
-    source=["tntbx/generalized_inverse_ext.cpp"])
+    target="#lib/tntbx_ext",
+    source=["tntbx/ext.cpp"])

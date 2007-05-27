@@ -1,5 +1,5 @@
 from tntbx import eigensystem
-from tntbx.generalized_inverse import generalized_inverse
+from tntbx import generalized_inverse
 
 from scitbx.array_family import flex
 from libtbx.test_utils import approx_equal
