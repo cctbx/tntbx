@@ -8,6 +8,8 @@ class svd(object):
 
   def __init__(self, m):
     self.n_rows, self.n_columns = m.focus()
+    assert self.n_rows > 0
+    assert self.n_columns > 0
     if (self.n_rows < self.n_columns):
       m = m.matrix_transpose()
     self.svd_m_ge_n = svd_m_ge_n_double(m=m)
