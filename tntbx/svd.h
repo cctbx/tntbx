@@ -2,7 +2,9 @@
 #define TNTBX_SVD_H
 
 #include <tntbx/import_scitbx_af.h>
-#include <scitbx/array_family/ref.h>
+#include <scitbx/array_family/versa.h>
+#include <scitbx/array_family/shared.h>
+#include <scitbx/array_family/accessors/c_grid.h>
 #include <jama_svd.h>
 
 namespace tntbx {

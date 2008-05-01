@@ -4,6 +4,9 @@
 #include <tntbx/import_scitbx_af.h>
 #include <scitbx/mat_ref.h>
 #include <scitbx/sym_mat3.h>
+#include <scitbx/array_family/versa.h>
+#include <scitbx/array_family/shared.h>
+#include <scitbx/array_family/accessors/c_grid.h>
 
 #include <jama_eig.h>
 
