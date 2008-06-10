@@ -246,7 +246,7 @@ class SVD
 
       int pp = p-1;
       int iter = 0;
-      Real eps(pow(2.0,-52.0));
+      Real eps(1e-10); //pow(2.0,-52.0));
       while (p > 0) {
          int k=0;
 		 int kase=0;
@@ -521,7 +521,7 @@ class SVD
 
    int rank () 
    {
-      Real eps = pow(2.0,-52.0);
+      Real eps = 1e-10; //pow(2.0,-52.0);
       Real tol = max(m,n)*s[0]*eps;
       int r = 0;
       for (int i = 0; i < s.dim(); i++) {
