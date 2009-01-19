@@ -2,7 +2,7 @@ import tntbx.eigensystem
 
 from scitbx.array_family import flex
 from libtbx.test_utils import approx_equal
-from libtbx.itertbx import count
+from itertools import count
 
 try:
   import platform
