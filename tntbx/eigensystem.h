@@ -2,11 +2,10 @@
 #define TNTBX_EIGENSYSTEM_H
 
 #include <tntbx/import_scitbx_af.h>
-#include <scitbx/mat_ref.h>
 #include <scitbx/sym_mat3.h>
 #include <scitbx/array_family/versa.h>
 #include <scitbx/array_family/shared.h>
-#include <scitbx/array_family/accessors/c_grid.h>
+#include <scitbx/array_family/accessors/mat_grid.h>
 
 #include <jama_eig.h>
 
@@ -55,12 +54,7 @@ namespace tntbx {
       /*! \brief Determines the eigenvectors and eigenvalues of the
           real square matrix.
        */
-      real(scitbx::mat_const_ref<FloatType> const& m);
-
-      /*! \brief Determines the eigenvectors and eigenvalues of the
-          real square matrix.
-       */
-      real(af::const_ref<FloatType, af::c_grid<2> > const& m);
+      real(af::const_ref<FloatType, af::mat_grid> const& m);
 
       /*! \brief Determines the eigenvectors and eigenvalues of the
           real square matrix.
@@ -124,7 +118,7 @@ namespace tntbx {
 
     template <typename FloatType>
     real<FloatType>::real(
-       scitbx::mat_const_ref<FloatType> const& m
+       af::const_ref<FloatType, af::mat_grid> const& m
        )
     {
       unsigned nrows = m.accessor()[0];
@@ -141,27 +135,6 @@ namespace tntbx {
             }
         }
 
-      initialize(a);
-    }
-
-    template <typename FloatType>
-    real<FloatType>::real(
-      af::const_ref<FloatType, af::c_grid<2> > const& m
-      )
-    {
-      unsigned nrows = m.accessor()[0];
-      unsigned ncols = m.accessor()[1];
-
-      SCITBX_ASSERT (nrows == ncols);
-
-      TNT::Array2D<FloatType> a(nrows, nrows);
-      for(int i=0;i<nrows;i++)
-        {
-          for(int j=0;j<nrows;j++)
-            {
-              a[i][j] = m(i,j);
-            }
-        }
       initialize(a);
     }
 
