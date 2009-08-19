@@ -14,18 +14,19 @@ env_etc.tntbx_common_includes = [
 ]
 
 Import("env_base", "env_etc")
-env = env_base.Copy(
-  CXXFLAGS=env_etc.cxxflags_base,
+env = env_base.Clone(
   LIBS=env_etc.libm,
-  LIBPATH=["#lib"]
-)
+  LIBPATH=["#lib"])
+if (libtbx.manual_date_stamp < 20090819):
+  # XXX backward compatibility 2009-08-19
+  env.Replace(CXXFLAGS=env_etc.cxxflags_base)
 env_etc.include_registry.append(
   env=env,
   paths=env_etc.tntbx_common_includes)
 
 if (not env_etc.no_boost_python):
   Import("env_scitbx_boost_python_ext")
-  env_bpl = env_scitbx_boost_python_ext.Copy()
+  env_bpl = env_scitbx_boost_python_ext.Clone()
   env_etc.include_registry.append(
     env=env_bpl,
     paths=env_etc.tntbx_common_includes)
