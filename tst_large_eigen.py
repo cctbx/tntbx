@@ -1,3 +1,4 @@
+from __future__ import print_function
 import tntbx.eigensystem
 
 from scitbx.array_family import flex
@@ -107,12 +108,12 @@ def exercise_eigensystem():
     n_values = LinearAlgebra.eigenvalues(n)
     assert len(e_values) == len(n_values)
     #
-    print '               Eigenvalues'
-    print '      %-16s %-16s' % ('TNT','Numpy')
+    print('               Eigenvalues')
+    print('      %-16s %-16s' % ('TNT','Numpy'))
     for i,e,n in zip(count(1), e_values, n_values):
       if (isinstance(e, complex)): e = e.real
       if (isinstance(n, complex)): n = n.real
-      print "  %2d %16.12f %16.12f" % (i, e, n)
+      print("  %2d %16.12f %16.12f" % (i, e, n))
   #
   sorted_values = e_values.select(
     flex.sort_permutation(data=e_values, reverse=True))
@@ -126,7 +127,7 @@ def exercise_eigensystem():
 
 def run():
   exercise_eigensystem()
-  print "OK"
+  print("OK")
 
 if (__name__ == "__main__"):
   run()

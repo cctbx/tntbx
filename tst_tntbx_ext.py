@@ -1,3 +1,4 @@
+from __future__ import print_function
 import tntbx
 import tntbx.eigensystem
 
@@ -177,7 +178,7 @@ def run():
       pass
   exercise_svd_and_generalized_inverse()
   exercise_eigensystem()
-  print "OK"
+  print("OK")
 
 if (__name__ == "__main__"):
   run()
